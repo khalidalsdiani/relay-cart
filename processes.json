@@ -1,0 +1,23 @@
+{
+  "apps": [
+    {
+      "name": "relay-cart",
+      "script": "index.js",
+      "watch": false,
+      "node_args": "--harmony",
+      "log_date_format": "YYYY-MM-DD HH:mm Z",
+      "error_file": "logs/relay-cart.stderr.log",
+      "out_file": "logs/relay-cart.stdout.log",
+      "ignore_watch": [
+        "node_modules",
+        "logs"
+      ],
+      "env": {
+        "DEBUG": "*,-compression,-express:*,-babel,-send,-engine:*,-engine,-socket.io:*,socket.io-*",
+        "NODE_PATH": "./lib;./lib/controllers",
+        "NODE_ENV": "development",
+        "PORT": 3000
+      }
+    }
+  ]
+}

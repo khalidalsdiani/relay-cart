@@ -1,0 +1,98 @@
+input AddToCartInput {
+  id: ID!
+  quantity: Int
+  clientMutationId: String!
+}
+
+type AddToCartPayload {
+  entryEdge: CartEntryEdge
+  cartEntry: CartEntry
+  cart: Cart
+  clientMutationId: String!
+}
+
+type Cart implements Node {
+  id: ID!
+  entries(after: String, first: Int, before: String, last: Int): CartEntryConnection
+  totalNumberOfItems: Int
+  totalPriceOfItems: Float
+}
+
+type CartEntry implements Node {
+  id: ID!
+  product: Product
+  quantity: Float
+}
+
+type CartEntryConnection {
+  pageInfo: PageInfo!
+  edges: [CartEntryEdge]
+}
+
+type CartEntryEdge {
+  node: CartEntry
+  cursor: String!
+}
+
+type Image implements Node {
+  id: ID!
+  format: String
+  url: String
+}
+
+type Mutation {
+  addToCart(input: AddToCartInput!): AddToCartPayload
+  removeFromCart(input: RemoveFromCartInput!): RemoveFromCartPayload
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Product implements Node {
+  id: ID!
+  name: String
+  price: Float
+  images(format: String = "any", after: String, first: Int, before: String, last: Int): [Image]
+}
+
+type ProductConnection {
+  pageInfo: PageInfo!
+  edges: [ProductEdge]
+}
+
+type ProductEdge {
+  node: Product
+  cursor: String!
+}
+
+type ProductList implements Node {
+  id: ID!
+  items(after: String, first: Int, before: String, last: Int): ProductConnection
+  totalNumberOfItems: Int
+}
+
+type Query {
+  product(id: ID): Product
+  productList: ProductList
+  cart: Cart
+  node(id: ID!): Node
+}
+
+input RemoveFromCartInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type RemoveFromCartPayload {
+  deletedCartEntryId: ID
+  cart: Cart
+  clientMutationId: String!
+}

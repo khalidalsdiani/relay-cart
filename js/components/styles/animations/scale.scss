@@ -1,0 +1,15 @@
+@keyframes scale {
+  from {
+    transform: scale(1);
+  }
+
+  to{
+    transform: scale(1.4);
+  }
+}
+
+.scale{
+  animation: scale ease-in-out 1;
+  animation-fill-mode: backwards;
+  animation-duration: .3s;
+}

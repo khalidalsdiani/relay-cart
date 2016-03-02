@@ -1,0 +1,25 @@
+.ProductList {
+  border-top: 1px solid #cfcfd2;
+  background: #fff;
+
+  .entries{
+    padding-right: .32rem;
+    padding-left: .32rem;
+
+
+    .info{
+      .cart-quantity{
+        display: flex;
+        align-items: center;
+        margin-left: .16rem;
+
+        .quantity{
+          padding: .12rem .16rem;
+          border-radius: .06rem;
+          background: #e76e41;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

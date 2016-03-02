@@ -1,0 +1,31 @@
+.CartWidget{
+  position: absolute;
+  right: .32rem;
+  bottom: 2.48rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 1.24rem;
+  width: 1.24rem;
+  text-align: center;
+  border: 1px solid #cfcfd2;
+  border-radius: .62rem;
+  background: #fff;
+
+  .icon{
+    font-size: .8rem;
+    color:#e76e41;
+  }
+
+  .bubble{
+    position: absolute;
+    top: -.12rem;
+    right: -.12rem;
+    background: #e76e41;
+    padding: .12rem;
+    border-radius: 1.24rem;
+    color: #fff;
+  }
+}

@@ -1,0 +1,33 @@
+
+@keyframes slideFromRight {
+  from {
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slide-from-right {
+  animation: slideFromRight ease-in 1;
+  animation-fill-mode: forwards;
+  animation-duration: .3s;
+}
+
+@keyframes collapseToRight {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+.collapse-to-right {
+  animation: collapseToRight ease-in 1 !important;
+  animation-fill-mode: forwards !important;
+  animation-duration: .3s !important;
+}
+

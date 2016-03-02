@@ -1,0 +1,71 @@
+@import "variables";
+
+.entries {
+
+  > .description, .status {
+    padding-bottom: .32rem;
+    padding-top: .32rem;
+  }
+
+  > .description {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-top: 1px solid $borderColor;
+    padding-bottom: .32rem;
+  }
+
+  .entry {
+    display: flex;
+    align-items: center;
+    padding-bottom: .32rem;
+    padding-top: .32rem;
+    border-top: 1px solid $borderColor;
+
+    &.borderless {
+      border-top: 0;
+    }
+
+    > .Checkbox, > .Icon {
+      &:first-of-type {
+        margin-right: .32rem;
+        color: $fontHighLightColor;
+      }
+    }
+
+    .image {
+      margin-right: .32rem;
+      height: 1.28rem;
+      line-height: 1.28rem;
+      width: 1.28rem;
+      text-align: center;
+      border: 1px solid $borderColor;
+    }
+
+    .info {
+      flex: 1;
+
+      .description {
+        margin-top: 0;
+        padding: 0;
+      }
+
+      .price, .operation {
+        margin-top: .16rem;
+      }
+
+      .operation{
+        display: flex;
+      }
+    }
+
+  }
+}
+
