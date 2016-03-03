@@ -27,7 +27,7 @@ const PRODUCTS = [
     price: 28.85,
     images: [{
       format: 'thumbnail',
-      url: 'http://ecx.images-amazon.com/images/I/41PhOmFQTTL._AA320_FMwebp_QL65_.jpg',
+      url: 'http://ecx.images-amazon.com/images/I/41PhOmFQTTL._AA320_QL65_.jpg',
     }],
   },
   {
@@ -36,7 +36,7 @@ const PRODUCTS = [
     price: 20.46,
     images: [{
       format: 'thumbnail',
-      url: 'http://ecx.images-amazon.com/images/I/518QVtPWA7L._AA320_FMwebp_QL65_.jpg',
+      url: 'http://ecx.images-amazon.com/images/I/518QVtPWA7L._AA320_QL65_.jpg',
     }],
   },
   {
@@ -45,7 +45,7 @@ const PRODUCTS = [
     price: 15.87,
     images: [{
       format: 'thumbnail',
-      url: 'http://ecx.images-amazon.com/images/I/51+Uy4JxjVL._AA320_FMwebp_QL65_.jpg',
+      url: 'http://ecx.images-amazon.com/images/I/51+Uy4JxjVL._AA320_QL65_.jpg',
     }],
   },
   {
@@ -54,7 +54,7 @@ const PRODUCTS = [
     price: 27.92,
     images: [{
       format: 'thumbnail',
-      url: 'http://ecx.images-amazon.com/images/I/51pLAgSXOzL._AA320_FMwebp_QL65_.jpg',
+      url: 'http://ecx.images-amazon.com/images/I/51pLAgSXOzL._AA320_QL65_.jpg',
     }],
   },
   {
@@ -63,7 +63,7 @@ const PRODUCTS = [
     price: 26.45,
     images: [{
       format: 'thumbnail',
-      url: 'http://ecx.images-amazon.com/images/I/51bRhyVTVGL._AA320_FMwebp_QL65_.jpg',
+      url: 'http://ecx.images-amazon.com/images/I/51bRhyVTVGL._AA320_QL65_.jpg',
     }],
   },
   {
@@ -72,7 +72,7 @@ const PRODUCTS = [
     price: 13.49,
     images: [{
       format: 'thumbnail',
-      url: 'http://ecx.images-amazon.com/images/I/41XtnwhGs6L._AA320_FMwebp_QL65_.jpg',
+      url: 'http://ecx.images-amazon.com/images/I/41XtnwhGs6L._AA320_QL65_.jpg',
     }],
   },
   {
@@ -81,7 +81,7 @@ const PRODUCTS = [
     price: 13.46,
     images: [{
       format: 'thumbnail',
-      url: 'http://ecx.images-amazon.com/images/I/51F1TUdNOKL._AA320_FMwebp_QL65_.jpg',
+      url: 'http://ecx.images-amazon.com/images/I/51F1TUdNOKL._AA320_QL65_.jpg',
     }],
   },
   {
@@ -90,7 +90,7 @@ const PRODUCTS = [
     price: 18.09,
     images: [{
       format: 'thumbnail',
-      url: 'http://ecx.images-amazon.com/images/I/51ACzMjH6rL._AA320_FMwebp_QL65_.jpg',
+      url: 'http://ecx.images-amazon.com/images/I/51ACzMjH6rL._AA320_QL65_.jpg',
     }],
   },
   {
@@ -99,7 +99,7 @@ const PRODUCTS = [
     price: 4.99,
     images: [{
       format: 'thumbnail',
-      url: 'http://ecx.images-amazon.com/images/I/41FhogvNebL._AA320_FMwebp_QL65_.jpg',
+      url: 'http://ecx.images-amazon.com/images/I/41FhogvNebL._AA320_QL65_.jpg',
     }],
   },
   {
@@ -108,7 +108,7 @@ const PRODUCTS = [
     price: 29.48,
     images: [{
       format: 'thumbnail',
-      url: 'http://ecx.images-amazon.com/images/I/51t8vT-IvqL._AA320_FMwebp_QL65_.jpg',
+      url: 'http://ecx.images-amazon.com/images/I/51t8vT-IvqL._AA320_QL65_.jpg',
     }],
   },
   {
@@ -117,7 +117,7 @@ const PRODUCTS = [
     price: 38.89,
     images: [{
       format: 'thumbnail',
-      url: 'http://ecx.images-amazon.com/images/I/51qpyuO-ANL._AA320_FMwebp_QL65_.jpg',
+      url: 'http://ecx.images-amazon.com/images/I/51qpyuO-ANL._AA320_QL65_.jpg',
     }],
   },
   {
@@ -126,7 +126,7 @@ const PRODUCTS = [
     price: 9.99,
     images: [{
       format: 'thumbnail',
-      url: 'http://ecx.images-amazon.com/images/I/51d6QOwdxXL._AA320_FMwebp_QL65_.jpg',
+      url: 'http://ecx.images-amazon.com/images/I/51d6QOwdxXL._AA320_QL65_.jpg',
     }],
   },
   {
@@ -135,7 +135,7 @@ const PRODUCTS = [
     price: 27.95,
     images: [{
       format: 'thumbnail',
-      url: 'http://ecx.images-amazon.com/images/I/512+yH2PsbL._AA320_FMwebp_QL65_.jpg',
+      url: 'http://ecx.images-amazon.com/images/I/512+yH2PsbL._AA320_QL65_.jpg',
     }],
   },
   {
@@ -144,7 +144,7 @@ const PRODUCTS = [
     price: 9.99,
     images: [{
       format: 'thumbnail',
-      url: 'http://ecx.images-amazon.com/images/I/41pLEp5yd7L._AA320_FMwebp_QL65_.jpg',
+      url: 'http://ecx.images-amazon.com/images/I/41pLEp5yd7L._AA320_QL65_.jpg',
     }],
   },
 ];
