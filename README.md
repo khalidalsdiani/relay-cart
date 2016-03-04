@@ -1,5 +1,5 @@
 # relay-cart
-A simple shopping cart example of relay &amp; GraphQL with routing and pagination
+A simple shopping cart example leveraging relay &amp; GraphQL with routing and pagination
 
 ## Usage
 clone this repo and run:
