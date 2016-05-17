@@ -26,6 +26,8 @@ import {
   nodeDefinitions,
   toGlobalId,
 } from 'graphql-relay';
+
+import logger from '../../logger';
 import { productConnection } from './productType';
 
 import productService from '../services/productService';
@@ -78,7 +80,7 @@ export const { connectionType: productListConnection, edgeType: productListEdge 
 export const queryProductList = {
   type: productListType,
   args: {},
-  resolve: async ({}) => {
+  resolve: ({}) => {
     logger.info('Resolving queryProductList with params:', {});
 
     return {};

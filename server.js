@@ -3,7 +3,6 @@
  */
 import cookieParser from 'cookie-parser';
 import express from 'express';
-import gutil from 'gulp-util';
 import graphQLHTTP from 'express-graphql';
 import morgan from 'morgan';
 import path from 'path';
@@ -12,9 +11,8 @@ import session from 'express-session';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import { Schema } from './data/schema';
-global.logger = require('./logger').default;
-global.debug = logger.debug;
 import webpackConfig from './webpack.dev.config';
+import logger from './logger';
 
 const APP_PORT = 3000;
 const GRAPHQL_PORT = 8080;
@@ -40,10 +38,11 @@ graphQLServer.use('/graphql',
     rootValue: request,
     pretty: true,
     graphiql: false,
+    context: request.session,
   }))
 );
 
-graphQLServer.listen(GRAPHQL_PORT, () => gutil.log(
+graphQLServer.listen(GRAPHQL_PORT, () => console.log(
   `GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}`
 ));
 
@@ -75,8 +74,7 @@ app.use(express.static(publicPath));
 
 app.use(morgan('combined', { stream: logger.stream }));
 
-app.listen(APP_PORT, 'localhost', (err)=> {
-  if (err) throw new gutil.PluginError('webpack-dev-server', err);
-  gutil.log(`App Server is now running on http://localhost:${APP_PORT}`);
-  gutil.log('[webpack-dev-server]', `http://localhost:${APP_PORT}\/webpack-dev-server/index.html`);
+app.listen(APP_PORT, 'localhost', ()=> {
+  console.log(`App Server is now running on http://localhost:${APP_PORT}`);
+  console.log('[webpack-dev-server]', `http://localhost:${APP_PORT}\/webpack-dev-server/index.html`);
 });

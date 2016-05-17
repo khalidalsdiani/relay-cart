@@ -27,6 +27,7 @@ import {
   toGlobalId,
 } from 'graphql-relay';
 
+import logger from '../../logger';
 import cartEntryType, { cartEntryConnection } from './cartEntryType';
 
 import cartService from '../services/cartService';
@@ -42,7 +43,7 @@ export const cartType = new GraphQLObjectType({
       args: {
         ...connectionArgs,
       },
-      resolve: ({ entries }, { ...args }, { rootValue })=> {
+      resolve: ({ entries }, { ...args })=> {
         logger.info('Resolving cartType.entries with params:', { ...args });
 
         return connectionFromArray(
@@ -69,10 +70,10 @@ export const { connectionType: cartConnection, edgeType: cartEdge } =
 export const queryCart = {
   type: cartType,
   args: {},
-  resolve: async({}, {}, { rootValue, request }) => {
+  resolve: ({}, {}, session) => {
     logger.info('Resolving queryCart with params:', {});
 
-    return cartService.getSessionCart(rootValue.session);
+    return cartService.getSessionCart(session);
   },
 };
 

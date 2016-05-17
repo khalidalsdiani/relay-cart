@@ -26,8 +26,8 @@ import {
   toGlobalId,
 } from 'graphql-relay';
 
+import logger from '../../logger';
 import productType from './productType';
-import productService from '../services/productService';
 
 import { nodeInterface } from '../defaultDefinitions';
 export const cartEntryType = new GraphQLObjectType({
@@ -56,7 +56,7 @@ export const queryCartEntry = {
       type: GraphQLID,
     },
   },
-  resolve: async({}, { id }, { rootValue }) => {
+  resolve: ({}, { id }) => {
     logger.info('Resolving queryCartEntry with params:', { id });
 
     return {};

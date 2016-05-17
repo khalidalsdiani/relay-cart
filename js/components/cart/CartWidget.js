@@ -31,14 +31,16 @@ export default class CartWidget extends React.Component {
 
   componentDidMount() {
     const { cartIcon } = this.refs;
-    cartIcon.addEventListener('webkitAnimationEnd', function removeScala() {
+    cartIcon.addEventListener('webkitAnimationEnd', ()=> {
       this.classList.remove('scale');
     });
   }
 
   componentWillUnmount() {
     const { cartIcon } = this.refs;
-    cartIcon.removeEventListener('webkitAnimationEnd');
+    cartIcon.removeEventListener('webkitAnimationEnd', ()=> {
+
+    });
   }
 
   setImmState = (fn)=>
@@ -64,7 +66,7 @@ export default class CartWidget extends React.Component {
 
   render() {
     const { number } = this.props;
-    const { } = this.state.data.toJS();
+    const {} = this.state.data.toJS();
     const isEmpty = number === 0;
 
     const iconClassnames = classNames('icon', {
@@ -73,9 +75,9 @@ export default class CartWidget extends React.Component {
     });
 
     return (
-      <div className="CartWidget" onClick={this._handleCartWidgetClick}>
-        <i className={iconClassnames} ref="cartIcon"/>
-        <span className="bubble">{number}</span>
+      <div className="CartWidget" onClick={this._handleCartWidgetClick} >
+        <i className={iconClassnames} ref="cartIcon" />
+        <span className="bubble" >{number}</span>
       </div>
     );
   }

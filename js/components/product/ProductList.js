@@ -150,7 +150,7 @@ class ProductList extends React.Component {
 
       return (<ProductEntry product={product} key={product.id}>
         <div className="operation">
-          <i className="icon ion-ios-plus" onClick={this._handleAddToCartClick.bind(this, product)}/>
+          <i className="icon ion-ios-add-circle" onClick={this._handleAddToCartClick.bind(this, product)}/>
           {
             cartQuantity > 0 &&
             <div className="cart-quantity">

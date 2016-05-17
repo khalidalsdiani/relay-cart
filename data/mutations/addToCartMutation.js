@@ -27,6 +27,8 @@ import {
   toGlobalId,
 } from 'graphql-relay';
 
+import logger from '../../logger';
+
 import cartEntryType, { cartEntryEdge } from '../types/cartEntryType';
 import cartType from '../types/cartType';
 
@@ -40,7 +42,7 @@ const addToCartMutation = mutationWithClientMutationId({
     quantity: { type: GraphQLInt },
   },
   outputFields: {
-    entryEdge: {
+    cartEntryEdge: {
       type: cartEntryEdge,
       resolve: async({ cart, cartEntry }) => {
         logger.info('Resolving addToCartMutation.entryEdge with params :', {});
@@ -68,9 +70,9 @@ const addToCartMutation = mutationWithClientMutationId({
       },
     },
   },
-  mutateAndGetPayload: async({ id, quantity }, { rootValue }) => {
+  mutateAndGetPayload: async({ id, quantity }, session) => {
     logger.info('Invoke addToCartMutation with params:', { id, quantity });
-    const cart = cartService.getSessionCart(rootValue.session);
+    const cart = cartService.getSessionCart(session);
 
     const localProductId = fromGlobalId(id).id;
     const product = productService.findById(localProductId);

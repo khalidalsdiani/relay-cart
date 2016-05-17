@@ -32,13 +32,13 @@ import ProductList from './models/ProductList';
 
 
 export const { nodeInterface, nodeField } = nodeDefinitions(
-  async(globalId, { rootValue }) => {
+  async(globalId, session) => {
     logger.info(`Getting node data from globalId(${globalId})`);
 
     const { type, id } = fromGlobalId(globalId);
 
     if (type === 'CartEntry') {
-      const cart = cartService.getSessionCart(rootValue.session);
+      const cart = cartService.getSessionCart(session);
       return cart.entries.find((entry)=> entry.id === id);
     }
 

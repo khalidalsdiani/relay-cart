@@ -1,24 +1,11 @@
 import 'babel-polyfill';
-import { browserHistory } from 'react-router';
+import { Router, browserHistory, applyRouterMiddleware } from 'react-router';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Relay from 'react-relay';
-import { RelayRouter } from 'react-router-relay';
-
-import FastClick from 'fastclick';
+import useRelay from 'react-router-relay';
 
 import rootRoute from './routes/rootRoute';
-
-if (__DEBUG__) {
-  const debug = require('debug');
-  /* enable debug in browser */
-  debug.enable('app:*');
-  window.debug = debug('app:client');
-} else {
-  window.debug = (print)=> {
-    console.log(print);
-  };
-}
 
 const networkLayerOptions = {
   fetchTimeout: 30000,   // Timeout after 30s.
@@ -32,10 +19,10 @@ Relay.injectNetworkLayer(
 );
 
 ReactDOM.render(
-  <RelayRouter history={browserHistory} routes={rootRoute} />,
+  <Router
+    history={browserHistory}
+    render={applyRouterMiddleware(useRelay)}
+    environment={Relay.Store}
+    routes={rootRoute} />,
   document.getElementById('root')
 );
-
-document.addEventListener('DOMContentLoaded', ()=> {
-  FastClick.attach(document.body);
-}, false);

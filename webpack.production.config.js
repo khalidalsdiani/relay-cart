@@ -5,7 +5,6 @@ import path from 'path';
 import autoprefixer from 'autoprefixer';
 
 import webpack from 'webpack';
-import StatsPlugin from 'stats-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const rootPath = path.join(__dirname);
@@ -16,11 +15,11 @@ const jsPath = path.join(rootPath, 'js');
 const stylePaths = [
   path.join(jsPath, 'components', 'styles'),
   path.join(rootPath, 'node_modules', 'normalize.css'),
-  path.join(rootPath, 'node_modules', 'ionicons', 'scss'),
+  path.join(rootPath, 'node_modules', 'ionicons', 'dist', 'scss'),
 ];
 
 const fontPaths = [
-  path.join(rootPath, 'node_modules', 'ionicons', 'fonts'),
+  path.join(rootPath, 'node_modules', 'ionicons', 'dist', 'fonts'),
 ];
 
 export const webpackProductionConfig = {
@@ -36,39 +35,30 @@ export const webpackProductionConfig = {
     publicPath: '/public/',
   },
 
-  // recordsOutputPath: path.join(__dirname, 'records.json'),
-
   module: {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel',
-        query: {
-          plugins: ['./build/babelRelayPlugin'],
-          presets: ['es2015', 'react', 'stage-0'],
-          cacheDirectory: true,
-        },
-        include: jsPath,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.(css|scss)$/,
         loader: ExtractTextPlugin.extract(
-          'css!postcss!sass'
+          'css?sourceMap!postcss!sass?outputStyle=expanded&sourceMap'
         ),
         include: stylePaths,
       },
       {
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file-loader',
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?.*$/,
+        loader: 'file-loader?limit=100000&minetype=application/font-woff',
         include: fontPaths,
       },
       {
-        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?.*$/,
         loader: 'file-loader',
         include: fontPaths,
       },
-      { test: /\.png$/, loader: 'file-loader' },
-      { test: /\.jpg$/, loader: 'file-loader' },
     ],
   },
 
@@ -82,12 +72,8 @@ export const webpackProductionConfig = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        // Useful to reduce the size of client-side libraries, e.g. react
         NODE_ENV: JSON.stringify('production'),
       },
-      __CLIENT__: true,
-      __SERVER__: false,
-      __DEBUG__: false,
     }),
     new ExtractTextPlugin('[name].[chunkhash].css', { allChunks: true }),
     new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */'[name].[chunkhash].js'),
@@ -102,10 +88,6 @@ export const webpackProductionConfig = {
       compressor: {
         warnings: false,
       },
-    }),
-    new StatsPlugin('stats.json', {
-      chunkModules: true,
-      exclude: [/node_modules[\\\/]/],
     }),
   ],
 };

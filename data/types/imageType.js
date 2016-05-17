@@ -65,7 +65,7 @@ export const queryImage = {
       type: GraphQLID,
     },
   },
-  resolve: async ({}, { id }) => {
+  resolve: ({}, { id }) => {
     logger.info('Resolving queryImage with params:', { id });
 
     return {};

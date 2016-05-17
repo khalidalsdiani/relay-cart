@@ -27,6 +27,8 @@ import {
   toGlobalId,
 } from 'graphql-relay';
 
+import logger from '../../logger';
+
 import cartService from '../services/cartService';
 
 import cartType from '../types/cartType';
@@ -46,10 +48,10 @@ const removeFromCartMutation = mutationWithClientMutationId({
       resolve: ({ cart })=> cart,
     },
   },
-  mutateAndGetPayload: async({ id }, { rootValue }) => {
+  mutateAndGetPayload: async({ id }, session) => {
     logger.info('Invoke removeFromCartMutation with params:', { id });
 
-    const cart = cartService.getSessionCart(rootValue.session);
+    const cart = cartService.getSessionCart(session);
     const localCartEntryId = fromGlobalId(id).id;
     cartService.removeFromCart(cart, localCartEntryId);
 

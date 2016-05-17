@@ -81,9 +81,9 @@ export default class InputQuantity extends React.Component {
 
     return (
       <div className="Input-quantity">
-        <i className="icon ion-ios-minus" onClick={this._handleMinus}/>
+        <i className="icon ion-ios-remove-circle" onClick={this._handleMinus}/>
         <input className="input-text" value={value} onChange={this._handleChange}/>
-        <i className="icon ion-ios-plus" onClick={this._handleAdd}/>
+        <i className="icon ion-ios-add-circle" onClick={this._handleAdd}/>
       </div>
     );
   }

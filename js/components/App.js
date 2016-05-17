@@ -8,7 +8,7 @@ import React, { PropTypes } from 'react';
 import 'normalize.css/normalize.css';
 import './styles/animations.scss';
 import './styles/icons.scss';
-import 'ionicons/scss/ionicons.scss';
+import 'ionicons/dist/scss/ionicons.scss';
 import './styles/shape.scss';
 
 /* import common styles */

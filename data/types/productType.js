@@ -26,6 +26,7 @@ import {
   toGlobalId,
 } from 'graphql-relay';
 
+import logger from '../../logger';
 import imageType from './imageType';
 
 import { nodeInterface } from '../defaultDefinitions';
@@ -73,7 +74,7 @@ export const queryProduct = {
       type: GraphQLID,
     },
   },
-  resolve: async ({}, { id }, { rootValue }) => {
+  resolve: ({}, { id }) => {
     logger.info('Resolving queryProduct with params:', { id });
 
     return {};
