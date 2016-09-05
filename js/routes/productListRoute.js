@@ -2,8 +2,8 @@
  * Created by Soon on 2/23/16.
  */
 export default {
-  path: '/product-list',
-  getComponent(location, cb) {
+  path: 'product-list',
+  getComponent(nextState, cb) {
     const self = this;
     require.ensure([], (require) => {
       self.queries = require('../queries/productListQueries').default;

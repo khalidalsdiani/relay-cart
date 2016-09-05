@@ -2,8 +2,8 @@
  * Created by Soon on 2/26/16.
  */
 export default {
-  path: '/cart',
-  getComponent(location, cb) {
+  path: 'cart',
+  getComponent(nextState, cb) {
     const self = this;
     require.ensure([], (require) => {
       self.queries = require('../queries/cartQueries').default;
