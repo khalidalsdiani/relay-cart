@@ -5,13 +5,13 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const rootPath = path.join(__dirname);
+const rootPath = path.resolve('.');
 const outputPath = path.join(rootPath, 'dist', 'dev', 'public');
 
 const jsPath = path.join(rootPath, 'js');
 
 const stylePaths = [
-  path.join(jsPath, 'components', 'styles'),
+  path.join(jsPath, 'components'),
   path.join(rootPath, 'node_modules', 'normalize.css'),
   path.join(rootPath, 'node_modules', 'ionicons', 'dist', 'scss'),
 ];
@@ -19,6 +19,8 @@ const stylePaths = [
 const fontPaths = [
   path.join(rootPath, 'node_modules', 'ionicons', 'dist', 'fonts'),
 ];
+
+const extractCSS = new ExtractTextPlugin({ filename: '[name].css', allChunks: true });
 
 module.exports = {
   // devtool: 'eval',
@@ -48,10 +50,14 @@ module.exports = {
       },
       {
         test: /\.(css|scss)$/,
-        loader: ExtractTextPlugin.extract(
-          'css?sourceMap!postcss!sass?outputStyle=expanded&sourceMap'
-        ),
-        include: stylePaths,
+        loader: extractCSS.extract({
+          fallbackLoader: 'style',
+          loader: [
+            'css',
+            'sass?sourceMap=true',
+            'postcss',
+          ],
+        }),
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?.*$/,
@@ -67,8 +73,8 @@ module.exports = {
   },
 
   plugins: [
+    extractCSS,
     new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin('[name].css'),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development'),
