@@ -7,12 +7,13 @@ import Product from '../models/Product';
 export const cartService = {
   addToCart: (cart, productCode, quantity)=> {
     let cartEntry = cart.entries.find((entry)=>entry.product.productCode === productCode);
+    const product = Product.findOne({ productCode });
 
     if (cartEntry) {
-      cartEntry.quantity = cartEntry.quantity + quantity;
+      cartEntry.quantity = quantity;
+      cartEntry.price = product.price;
+      cartEntry.totalPrice = (product.price * quantity).toFixed(2);
     } else {
-      const product = Product.findOne({ productCode });
-
       cartEntry = new CartEntry({ id: product.id, product, quantity });
       cart.entries.push(cartEntry);
     }

@@ -8,12 +8,17 @@ export default class RemoveFromCartMutation extends Relay.Mutation {
   static fragments = {
     cartEntry: () => Relay.QL`
       fragment on CartEntry {
-        id,
+        id
+        quantity
+        price
+        totalPrice
       }
     `,
     cart: () => Relay.QL`
       fragment on Cart {
-        id,
+        id
+        totalNumberOfItems
+        totalPriceOfItems
       }
     `,
   };
@@ -52,8 +57,16 @@ export default class RemoveFromCartMutation extends Relay.Mutation {
   }
 
   getOptimisticResponse() {
-    return {
+    const { cart, cartEntry } = this.props;
 
+    const cartPayload = {
+      totalNumberOfItems: cart.totalNumberOfItems - cartEntry.quantity,
+      totalPriceOfItems: cart.totalPriceOfItems - cartEntry.totalPrice,
+    };
+
+    return {
+      deletedCartEntryId: this.props.cartEntry.id,
+      cart: cartPayload,
     };
   }
 }

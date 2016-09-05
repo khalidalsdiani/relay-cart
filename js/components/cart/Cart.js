@@ -5,15 +5,17 @@
 import React, { PropTypes } from 'react';
 import Relay from 'react-relay';
 import { Map } from 'immutable';
+import debounce from 'lodash/debounce';
 import classNames from 'classnames';
 
 import AddToCartMutation from '../../mutations/AddToCartMutation';
 import RemoveFromCartMutation from '../../mutations/RemoveFromCartMutation';
 
-import ProductEntry from '../product/ProductEntry';
+import CartEntry from '../cart/CartEntry';
 import InputQuantity from '../form/InputQuantity';
 
 import './Cart.scss';
+
 class Cart extends React.Component {
 
   static propTypes = {
@@ -36,17 +38,52 @@ class Cart extends React.Component {
       data: fn(data),
     }));
 
-  _handleEntryQuantityChange = (cartEntry, quantity)=> {
-    const { cart } = this.props;
-    if (quantity === 0) {
-      Relay.Store.commitUpdate(
-        new RemoveFromCartMutation({ cart, cartEntry })
-      );
-    } else {
-      Relay.Store.commitUpdate(
-        new AddToCartMutation({ cart, product: cartEntry.product, quantity: quantity - cartEntry.quantity })
-      );
+  addToCartDebounce = debounce(()=> {
+    this.addToCartTransaction.commit();
+    this.addToCartTransaction = null;
+  }, 500);
+
+  addToCart = (product, quantity)=> {
+    const { relay, cart } = this.props;
+    return relay.applyUpdate(new AddToCartMutation({ cart, product, quantity }), {
+      onSuccess: () => {
+        console.log('added to cart!');
+      },
+      onFailure: async(tansition) => {
+        let errors;
+        if (tansition.getError().source) {
+          errors = tansition.getError() && tansition.getError().source.errors;
+        } else {
+          errors = (await tansition.getError().json()).errors;
+        }
+        errors.forEach((error)=> {
+          Toast.fail(error.message, 10);
+        });
+      },
+    });
+  };
+
+
+  removeFromCart = (cartEntry)=> {
+    const { relay, cart } = this.props;
+    return relay.applyUpdate(new RemoveFromCartMutation({ cart, cartEntry }));
+  };
+
+  /**
+   *
+   * @param cartEntry
+   * @param quantity
+   */
+  handleEntryQuantityChange = async(cartEntry, quantity)=> {
+    if (this.addToCartTransaction) {
+      await this.addToCartTransaction.rollback();
     }
+    if (quantity < 1) {
+      this.addToCartTransaction = await this.removeFromCart(cartEntry);
+    } else {
+      this.addToCartTransaction = await this.addToCart(cartEntry.product, quantity);
+    }
+    this.addToCartDebounce();
   };
 
   render() {
@@ -54,12 +91,12 @@ class Cart extends React.Component {
     const {} = this.state.data.toJS();
 
     const entries = cart.entries.edges.map(({ node: cartEntry })=>
-      <ProductEntry product={cartEntry.product} key={cartEntry.id}>
+      <CartEntry cartEntry={cartEntry} key={cartEntry.id}>
         <div className="operation">
           <InputQuantity value={cartEntry.quantity}
-                         onQuantityChange={this._handleEntryQuantityChange.bind(this, cartEntry)}/>
+                         onQuantityChange={this.handleEntryQuantityChange.bind(this, cartEntry)}/>
         </div>
-      </ProductEntry>
+      </CartEntry>
     );
 
     return (
@@ -90,11 +127,11 @@ export default Relay.createContainer(Cart, {
               id
               product{
                 id
-                ${ProductEntry.getFragment('product')}
                 ${AddToCartMutation.getFragment('product')}
               }
               quantity
               ${RemoveFromCartMutation.getFragment('cartEntry')}
+              ${CartEntry.getFragment('cartEntry')}
             }
           }
           pageInfo {

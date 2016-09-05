@@ -3,10 +3,15 @@
  */
 
 import React, { PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import { Map } from 'immutable';
 import classNames from 'classnames';
 
+import Portal from '../common/Portal';
+import CurveBall from '../common/CurveBall';
+
 import './CartWidget.scss';
+
 export default class CartWidget extends React.Component {
 
   static propTypes = {
@@ -25,20 +30,27 @@ export default class CartWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: Map({}),
+      data: Map({
+        curveBallWidth: document.documentElement.clientWidth,
+        curveBallHeight: document.documentElement.clientHeight,
+        curveBallRadius: window.rem * 0.2,
+      }),
     };
   }
 
   componentDidMount() {
-    const { cartIcon } = this.refs;
-    cartIcon.addEventListener('webkitAnimationEnd', ()=> {
+
+    window.addEventListener('resize', this.handleResize);
+    this.cartIconDOM = ReactDOM.findDOMNode(this.cartIcon);
+    this.cartIconRect = this.cartIconDOM.getBoundingClientRect();
+
+    this.cartIconDOM.addEventListener('webkitAnimationEnd', function () {
       this.classList.remove('scale');
     });
   }
 
   componentWillUnmount() {
-    const { cartIcon } = this.refs;
-    cartIcon.removeEventListener('webkitAnimationEnd', ()=> {
+    this.cartIconDOM.removeEventListener('webkitAnimationEnd', function () {
 
     });
   }
@@ -47,6 +59,32 @@ export default class CartWidget extends React.Component {
     this.setState(({ data }) => ({
       data: fn(data),
     }));
+
+  /**
+   * duration: duration of animation, the smaller the faster
+   */
+  animateCurveBall = (startX, startY, duration = 1000)=> {
+    const endRect = this.cartIconRect;
+    const endX = endRect.left + (endRect.width / 2);
+    const endY = endRect.top;
+
+    const controlX = (startX + endX) / 2;
+
+    // make the movement track of ball more curly
+    const controlY = Math.min(startY - 150, endY - 150);
+
+    // let's move the ball
+    this.curveBall.animateCurveBallMoving(startX, startY, controlX, controlY, endX, endY, duration);
+  };
+
+  resizeCurveBall = ()=> {
+    this.cartIconRect = this.cartIconDOM.getBoundingClientRect();
+    this.setImmState(d =>d
+      .set('curveBallWidth', document.documentElement.clientWidth)
+      .set('curveBallHeight', document.documentElement.clientHeight)
+      .set('curveBallRadius', 15)
+    );
+  };
 
   scale = ()=> {
     const { cartIcon } = this.refs;
@@ -57,16 +95,28 @@ export default class CartWidget extends React.Component {
     }, 0);
   };
 
-  _handleCartWidgetClick = ()=> {
+
+  handleResize = ()=> {
+    this.resizeCurveBall();
+  };
+
+
+  handleCartWidgetClick = ()=> {
     const { onClick } = this.props;
     if (typeof onClick === 'function') {
       onClick();
     }
   };
 
+  handleCurveBallStepEnd = ()=> {
+    setTimeout(()=> {
+      this.cartIconDOM.classList.add('scale');
+    }, 0);
+  };
+
   render() {
     const { number } = this.props;
-    const {} = this.state.data.toJS();
+    const { curveBallWidth, curveBallHeight, curveBallRadius } = this.state.data.toJS();
     const isEmpty = number === 0;
 
     const iconClassnames = classNames('icon', {
@@ -75,10 +125,19 @@ export default class CartWidget extends React.Component {
     });
 
     return (
-      <div className="CartWidget" onClick={this._handleCartWidgetClick} >
-        <i className={iconClassnames} ref="cartIcon" />
+
+      <div className="CartWidget" onClick={this.handleCartWidgetClick} >
+        <i className={iconClassnames} ref={(c) => { this.cartIcon = c; }} />
         <span className="bubble" >{number}</span>
+        <Portal>
+          { /* simulate a ball moving into the cart when click on plus button */ }
+          <CurveBall
+            width={curveBallWidth} height={curveBallHeight} radius={curveBallRadius} colorOfBall="#e76e41"
+            ref={(c) => { this.curveBall = c; }} onStepEnd={this.handleCurveBallStepEnd} />
+        </Portal>
       </div>
+
+
     );
   }
 }

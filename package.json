@@ -13,11 +13,13 @@
     "express": "^4.14.0",
     "express-graphql": "0.5.4",
     "express-session": "^1.14.1",
+    "fastclick": "^1.0.6",
     "graphql": "0.7.0",
     "graphql-relay": "0.4.3",
     "immutable": "^3.8.1",
     "ionicons": "^3.0.0",
     "iscroll": "^5.2.0",
+    "lodash": "^4.15.0",
     "moment": "^2.14.1",
     "morgan": "~1.7.0",
     "normalize.css": "^4.2.0",
@@ -53,6 +55,6 @@
     "sass-loader": "^4.0.1",
     "style-loader": "^0.13.1",
     "webpack": "^2.1.0-beta.21",
-    "webpack-dev-server": "^2.1.0-beta.2",
+    "webpack-dev-server": "^2.1.0-beta.2"
   }
 }

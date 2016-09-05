@@ -7,5 +7,7 @@ export default class CartEntry {
     this.id = id;
     this.product = product;
     this.quantity = quantity;
+    this.price = product.price;
+    this.totalPrice = (product.price * quantity).toFixed(2);
   }
 }

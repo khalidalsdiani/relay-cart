@@ -1,42 +1,68 @@
 input AddToCartInput {
   id: ID!
   quantity: Int
-  clientMutationId: String!
+  clientMutationId: String
 }
 
 type AddToCartPayload {
-  entryEdge: CartEntryEdge
+  cartEntryEdge: CartEntryEdge
   cartEntry: CartEntry
   cart: Cart
-  clientMutationId: String!
+  clientMutationId: String
 }
 
+# Just cart
 type Cart implements Node {
+  # The ID of an object
   id: ID!
   entries(after: String, first: Int, before: String, last: Int): CartEntryConnection
+
+  # The total number of items.
   totalNumberOfItems: Int
+
+  # The total prices of items.
   totalPriceOfItems: Float
 }
 
+# Just cartEntry
 type CartEntry implements Node {
+  # The ID of an object
   id: ID!
+
+  # The product of the cartEntry.
   product: Product
   quantity: Float
+  price: Float
+  totalPrice: Float
 }
 
+# A connection to a list of items.
 type CartEntryConnection {
+  # Information to aid in pagination.
   pageInfo: PageInfo!
+
+  # A list of edges.
   edges: [CartEntryEdge]
 }
 
+# An edge in a connection.
 type CartEntryEdge {
+  # The item at the end of the edge
   node: CartEntry
+
+  # A cursor for use in pagination
   cursor: String!
 }
 
+# Just image
 type Image implements Node {
+  # The ID of an object
   id: ID!
+
+  # The format of image.
   format: String
+
+  # The url of image.
   url: String
 }
 
@@ -45,37 +71,67 @@ type Mutation {
   removeFromCart(input: RemoveFromCartInput!): RemoveFromCartPayload
 }
 
+# An object with an ID
 interface Node {
+  # The id of the object.
   id: ID!
 }
 
+# Information about pagination in a connection.
 type PageInfo {
+  # When paginating forwards, are there more items?
   hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
   hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
   startCursor: String
+
+  # When paginating forwards, the cursor to continue.
   endCursor: String
 }
 
+# Just product
 type Product implements Node {
+  # The ID of an object
   id: ID!
+
+  # The name of the product.
   name: String
+
+  # The price of the product.
   price: Float
   images(format: String = "any", after: String, first: Int, before: String, last: Int): [Image]
 }
 
+# A connection to a list of items.
 type ProductConnection {
+  # Information to aid in pagination.
   pageInfo: PageInfo!
+
+  # A list of edges.
   edges: [ProductEdge]
 }
 
+# An edge in a connection.
 type ProductEdge {
+  # The item at the end of the edge
   node: Product
+
+  # A cursor for use in pagination
   cursor: String!
 }
 
+# Just productList
 type ProductList implements Node {
+  # The ID of an object
   id: ID!
+
+  # The items of product list .
   items(after: String, first: Int, before: String, last: Int): ProductConnection
+
+  # The total number of items.
   totalNumberOfItems: Int
 }
 
@@ -83,16 +139,21 @@ type Query {
   product(id: ID): Product
   productList: ProductList
   cart: Cart
-  node(id: ID!): Node
+
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
 }
 
 input RemoveFromCartInput {
   id: ID!
-  clientMutationId: String!
+  clientMutationId: String
 }
 
 type RemoveFromCartPayload {
   deletedCartEntryId: ID
   cart: Cart
-  clientMutationId: String!
+  clientMutationId: String
 }

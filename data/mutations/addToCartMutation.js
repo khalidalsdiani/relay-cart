@@ -44,30 +44,12 @@ const addToCartMutation = mutationWithClientMutationId({
   outputFields: {
     cartEntryEdge: {
       type: cartEntryEdge,
-      resolve: async({ cart, cartEntry }) => {
-        logger.info('Resolving addToCartMutation.entryEdge with params :', {});
-
-        return {
-          cursor: cursorForObjectInConnection(cart.entries, cartEntry),
-          node: cartEntry,
-        };
-      },
     },
     cartEntry: {
       type: cartEntryType,
-      resolve: async({ cartEntry }) => {
-        logger.info('Resolving addToCartMutation.cartEntry with params :', {});
-
-        return cartEntry;
-      },
     },
     cart: {
       type: cartType,
-      resolve: async({ cart }) => {
-        logger.info('Resolving addToCartMutation.cart with params :', {});
-
-        return cart;
-      },
     },
   },
   mutateAndGetPayload: async({ id, quantity }, session) => {
@@ -78,8 +60,12 @@ const addToCartMutation = mutationWithClientMutationId({
     const product = productService.findById(localProductId);
 
     const cartEntry = cartService.addToCart(cart, product.productCode, quantity);
+    const cartEntryEdge = {
+      cursor: cursorForObjectInConnection(cart.entries, cartEntry),
+      node: cartEntry,
+    };
 
-    return { cartEntry, cart };
+    return { cartEntry, cartEntryEdge, cart };
   },
 });
 

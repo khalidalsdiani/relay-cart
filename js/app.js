@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Relay from 'react-relay';
 import useRelay from 'react-router-relay';
+import FastClick from 'fastclick';
 
 import rootRoute from './routes/rootRoute';
 
@@ -26,3 +27,7 @@ ReactDOM.render(
     routes={rootRoute} />,
   document.getElementById('root')
 );
+
+document.addEventListener('DOMContentLoaded', ()=> {
+  FastClick.attach(document.body);
+}, false);

@@ -42,6 +42,12 @@ export const cartEntryType = new GraphQLObjectType({
     quantity: {
       type: GraphQLFloat,
     },
+    price: {
+      type: GraphQLFloat,
+    },
+    totalPrice: {
+      type: GraphQLFloat,
+    },
   }),
   interfaces: [nodeInterface],
 });

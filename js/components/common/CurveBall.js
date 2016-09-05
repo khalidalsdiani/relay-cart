@@ -7,8 +7,8 @@ import ReactDOM from 'react-dom';
 import { Map } from 'immutable';
 import Ball from './Ball';
 
-
 import './CurveBall.scss';
+
 export default class CurveBall extends React.Component {
 
   static propTypes = {
@@ -19,11 +19,6 @@ export default class CurveBall extends React.Component {
 
     onStepEnd: PropTypes.func,
   };
-
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  };
-
 
   constructor(props) {
     super(props);
