@@ -8,7 +8,7 @@ import { Map } from 'immutable';
 import Ball from './Ball';
 
 
-import '!style!css!postcss!sass!./CurveBall.scss';
+import './CurveBall.scss';
 export default class CurveBall extends React.Component {
 
   static propTypes = {

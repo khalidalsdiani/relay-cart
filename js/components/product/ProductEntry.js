@@ -7,8 +7,10 @@ import Relay from 'react-relay';
 import { Map } from 'immutable';
 import classNames from 'classnames';
 
-import '!style!css!postcss!sass!./ProductEntry.scss';
-export default class ProductEntry extends React.Component {
+import './ProductEntry.scss';
+
+
+class ProductEntry extends React.Component {
 
   static propTypes = {
     product: PropTypes.object,

@@ -6,7 +6,7 @@ import React, { PropTypes } from 'react';
 import { Map } from 'immutable';
 import IScroll from 'iscroll/build/iscroll-lite';
 
-import '!style!css!postcss!sass!./Scroll.scss';
+import './Scroll.scss';
 export default class Scroll extends React.Component {
 
   static propTypes = {

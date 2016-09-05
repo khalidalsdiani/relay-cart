@@ -13,7 +13,7 @@ import RemoveFromCartMutation from '../../mutations/RemoveFromCartMutation';
 import ProductEntry from '../product/ProductEntry';
 import InputQuantity from '../form/InputQuantity';
 
-import '!style!css!postcss!sass!./Cart.scss';
+import './Cart.scss';
 class Cart extends React.Component {
 
   static propTypes = {

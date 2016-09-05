@@ -6,7 +6,7 @@ import React, { PropTypes } from 'react';
 import { Map } from 'immutable';
 
 import RegExes from '../../utils/RegExes';
-import '!style!css!postcss!sass!./InputQuantity.scss';
+import './InputQuantity.scss';
 export default class InputQuantity extends React.Component {
 
   static propTypes = {

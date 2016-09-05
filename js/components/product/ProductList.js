@@ -18,7 +18,8 @@ import AddToCartMutation from '../../mutations/AddToCartMutation';
 
 const SIZE_PER_PAGE = 8; // 8 products per page
 
-import '!style!css!postcss!sass!./ProductList.scss';
+import './ProductList.scss';
+
 class ProductList extends React.Component {
 
   static propTypes = {

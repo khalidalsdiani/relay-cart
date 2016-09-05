@@ -6,7 +6,7 @@ import React, { PropTypes } from 'react';
 import { Map } from 'immutable';
 import classNames from 'classnames';
 
-import '!style!css!postcss!sass!./CartWidget.scss';
+import './CartWidget.scss';
 export default class CartWidget extends React.Component {
 
   static propTypes = {
