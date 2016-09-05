@@ -50,6 +50,7 @@ export default class CurveBall extends React.Component {
     this.animationQueue.every((animation)=> !animation || animation.progress >= 1);
 
   drawBezierSplit = (ball, x0, y0, x1, y1, x2, y2, t0, t1)=> {
+    // reference http://www.pjgalbraith.com/drawing-animated-curves-javascript/
     if (t0 === 0.0 && t1 === 1.0) {
       ball.draw(x2, y2);
     } else if (t0 !== t1) {
@@ -58,9 +59,6 @@ export default class CurveBall extends React.Component {
       let t02 = t01 * t01;
       let t03 = 2.0 * t0 * t01;
 
-      // let nx0 = t02 * x0 + t03 * x1 + t00 * x2;
-      // let ny0 = t02 * y0 + t03 * y1 + t00 * y2;
-
       t00 = t1 * t1;
       t01 = 1.0 - t1;
       t02 = t01 * t01;
@@ -68,9 +66,6 @@ export default class CurveBall extends React.Component {
 
       const nx2 = t02 * x0 + t03 * x1 + t00 * x2;
       const ny2 = t02 * y0 + t03 * y1 + t00 * y2;
-
-      // let nx1 = lerp(lerp(x0, x1, t0), lerp(x1, x2, t0), t1);
-      // let ny1 = lerp(lerp(y0, y1, t0), lerp(y1, y2, t0), t1);
 
       ball.draw(nx2, ny2);
     }
