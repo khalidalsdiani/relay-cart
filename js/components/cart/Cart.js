@@ -8,6 +8,8 @@ import { Map } from 'immutable';
 import debounce from 'lodash/debounce';
 import classNames from 'classnames';
 
+import Price from '../common/Price';
+
 import AddToCartMutation from '../../mutations/AddToCartMutation';
 import RemoveFromCartMutation from '../../mutations/RemoveFromCartMutation';
 
@@ -91,20 +93,19 @@ class Cart extends React.Component {
     const {} = this.state.data.toJS();
 
     const entries = cart.entries.edges.map(({ node: cartEntry })=>
-      <CartEntry cartEntry={cartEntry} key={cartEntry.id}>
-        <div className="operation">
+      <CartEntry cartEntry={cartEntry} key={cartEntry.id} >
+        <div className="operation" >
           <InputQuantity value={cartEntry.quantity}
-                         onQuantityChange={this.handleEntryQuantityChange.bind(this, cartEntry)}/>
+                         onQuantityChange={this.handleEntryQuantityChange.bind(this, cartEntry)} />
         </div>
       </CartEntry>
     );
 
     return (
-      <div className="Cart">
-        <div className="entries">
-          <div className="description">
-            <p>Subtotal ({cart.totalNumberOfItems} items): <span
-              className="price">$ {cart.totalPriceOfItems.toFixed(2)}</span></p>
+      <div className="Cart" >
+        <div className="entries" >
+          <div className="description" >
+            <p>Subtotal ({cart.totalNumberOfItems} items): <Price value={cart.totalPriceOfItems}/></p>
           </div>
           {entries}
         </div>

@@ -7,6 +7,8 @@ import Relay from 'react-relay';
 import { Map } from 'immutable';
 import classNames from 'classnames';
 
+import Price from '../common/Price';
+
 import './ProductEntry.scss';
 
 
@@ -36,16 +38,16 @@ class ProductEntry extends React.Component {
 
   render() {
     const { product, children } = this.props;
-    const { } = this.state.data.toJS();
+    const {} = this.state.data.toJS();
 
     return (
-      <div className="ProductEntry entry">
-        <a className="link">
-          <img className="image" src={product.images[0].url}/>
+      <div className="ProductEntry entry" >
+        <a className="link" >
+          <img className="image" src={product.images[0].url} />
         </a>
-        <div className="info">
-          <div className="description">{product.name}</div>
-          <div className="price">$ {product.price}</div>
+        <div className="info" >
+          <div className="description" >{product.name}</div>
+          <Price value={product.price}/>
           { children }
         </div>
       </div>
