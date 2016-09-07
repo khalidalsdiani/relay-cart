@@ -12,7 +12,7 @@ and then visit [http://localhost:3000/](http://localhost:3000/)
 
 ## Demo
 
-View a demo here: [http://120.25.224.120/relay-cart.html](http://120.25.224.120/relay-cart.html).
+View a demo here: [http://120.76.218.113/relay-cart/demo.html](http://120.76.218.113/relay-cart/demo.html).
 Add items to the cart and change the quantities.
 
 ## Developing
