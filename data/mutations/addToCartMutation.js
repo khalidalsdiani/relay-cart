@@ -29,7 +29,7 @@ import {
 
 import logger from '../../logger';
 
-import cartEntryType, { cartEntryEdge } from '../types/cartEntryType';
+import cartEntryType, { cartEntryEdgeType } from '../types/cartEntryType';
 import cartType from '../types/cartType';
 
 import cartService from '../services/cartService';
@@ -43,7 +43,7 @@ const addToCartMutation = mutationWithClientMutationId({
   },
   outputFields: {
     cartEntryEdge: {
-      type: cartEntryEdge,
+      type: cartEntryEdgeType,
     },
     cartEntry: {
       type: cartEntryType,

@@ -32,12 +32,10 @@ import productType from './productType';
 import { nodeInterface } from '../defaultDefinitions';
 export const cartEntryType = new GraphQLObjectType({
   name: 'CartEntry',
-  description: 'Just cartEntry',
   fields: () => ({
     id: globalIdField('CartEntry'),
     product: {
       type: productType,
-      description: 'The product of the cartEntry.',
     },
     quantity: {
       type: GraphQLFloat,
@@ -52,7 +50,7 @@ export const cartEntryType = new GraphQLObjectType({
   interfaces: [nodeInterface],
 });
 
-export const { connectionType: cartEntryConnection, edgeType: cartEntryEdge } =
+export const { connectionType: cartEntryConnectionType, edgeType: cartEntryEdgeType } =
   connectionDefinitions({ name: 'CartEntry', nodeType: cartEntryType });
 
 export const queryCartEntry = {

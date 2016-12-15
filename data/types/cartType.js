@@ -28,23 +28,20 @@ import {
 } from 'graphql-relay';
 
 import logger from '../../logger';
-import cartEntryType, { cartEntryConnection } from './cartEntryType';
+import cartEntryType, { cartEntryConnectionType } from './cartEntryType';
 
 import cartService from '../services/cartService';
 
 import { nodeInterface } from '../defaultDefinitions';
 export const cartType = new GraphQLObjectType({
   name: 'Cart',
-  description: 'Just cart',
   fields: () => ({
     id: globalIdField('Cart'),
     entries: {
-      type: cartEntryConnection,
-      args: {
-        ...connectionArgs,
-      },
-      resolve: ({ entries }, { ...args })=> {
-        logger.info('Resolving cartType.entries with params:', { ...args });
+      type: cartEntryConnectionType,
+      args: connectionArgs,
+      resolve: ({ entries }, args)=> {
+        logger.info('Resolving cartType.entries with params:', args);
 
         return connectionFromArray(
           entries,
@@ -54,17 +51,15 @@ export const cartType = new GraphQLObjectType({
     },
     totalNumberOfItems: {
       type: GraphQLInt,
-      description: 'The total number of items.',
     },
     totalPriceOfItems: {
       type: GraphQLFloat,
-      description: 'The total prices of items.',
     },
   }),
   interfaces: [nodeInterface],
 });
 
-export const { connectionType: cartConnection, edgeType: cartEdge } =
+export const { connectionType: cartConnectionType, edgeType: cartEdgeType } =
   connectionDefinitions({ name: 'Cart', nodeType: cartType });
 
 export const queryCart = {

@@ -32,16 +32,13 @@ import imageType from './imageType';
 import { nodeInterface } from '../defaultDefinitions';
 export const productType = new GraphQLObjectType({
   name: 'Product',
-  description: 'Just product',
   fields: () => ({
     id: globalIdField('Product'),
     name: {
       type: GraphQLString,
-      description: 'The name of the product.',
     },
     price: {
       type: GraphQLFloat,
-      description: 'The price of the product.',
     },
     images: {
       type: new GraphQLList(imageType),
@@ -64,7 +61,7 @@ export const productType = new GraphQLObjectType({
   interfaces: [nodeInterface],
 });
 
-export const { connectionType: productConnection, edgeType: productEdge } =
+export const { connectionType: productConnectionType, edgeType: productEdgeType } =
   connectionDefinitions({ name: 'Product', nodeType: productType });
 
 export const queryProduct = {
