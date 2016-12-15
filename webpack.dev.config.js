@@ -25,9 +25,7 @@ const extractCSS = new ExtractTextPlugin({ filename: '[name].css', allChunks: tr
 module.exports = {
   // devtool: 'eval',
   devtool: 'source-map',
-  debug: true,
   watch: true,
-  colors: true,
 
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
@@ -51,11 +49,11 @@ module.exports = {
       {
         test: /\.(css|scss)$/,
         loader: extractCSS.extract({
-          fallbackLoader: 'style',
+          fallbackLoader: 'style-loader',
           loader: [
-            'css',
-            'sass?sourceMap=true',
-            'postcss',
+            'css-loader',
+            'sass-loader?sourceMap=true',
+            'postcss-loader',
           ],
         }),
       },

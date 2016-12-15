@@ -107,7 +107,7 @@
         {
           "kind": "OBJECT",
           "name": "Product",
-          "description": "Just product",
+          "description": null,
           "fields": [
             {
               "name": "id",
@@ -127,7 +127,7 @@
             },
             {
               "name": "name",
-              "description": "The name of the product.",
+              "description": null,
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -139,7 +139,7 @@
             },
             {
               "name": "price",
-              "description": "The price of the product.",
+              "description": null,
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -371,7 +371,7 @@
         {
           "kind": "OBJECT",
           "name": "ProductList",
-          "description": "Just productList",
+          "description": null,
           "fields": [
             {
               "name": "id",
@@ -391,7 +391,7 @@
             },
             {
               "name": "items",
-              "description": "The items of product list .",
+              "description": null,
               "args": [
                 {
                   "name": "after",
@@ -444,7 +444,7 @@
             },
             {
               "name": "totalNumberOfItems",
-              "description": "The total number of items.",
+              "description": null,
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -628,7 +628,7 @@
         {
           "kind": "OBJECT",
           "name": "Cart",
-          "description": "Just cart",
+          "description": null,
           "fields": [
             {
               "name": "id",
@@ -701,7 +701,7 @@
             },
             {
               "name": "totalNumberOfItems",
-              "description": "The total number of items.",
+              "description": null,
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -713,7 +713,7 @@
             },
             {
               "name": "totalPriceOfItems",
-              "description": "The total prices of items.",
+              "description": null,
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -820,7 +820,7 @@
         {
           "kind": "OBJECT",
           "name": "CartEntry",
-          "description": "Just cartEntry",
+          "description": null,
           "fields": [
             {
               "name": "id",
@@ -840,7 +840,7 @@
             },
             {
               "name": "product",
-              "description": "The product of the cartEntry.",
+              "description": null,
               "args": [],
               "type": {
                 "kind": "OBJECT",
