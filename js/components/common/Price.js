@@ -2,7 +2,8 @@
  * Created by Xin on 5/24/16.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import './Price.scss';
 

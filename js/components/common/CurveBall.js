@@ -2,7 +2,8 @@
  * Created by Soon on 11/18/2015.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { Map } from 'immutable';
 import Ball from './Ball';

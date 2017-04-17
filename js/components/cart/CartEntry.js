@@ -2,7 +2,8 @@
  * Created by Soon on 2/28/16.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import { Map } from 'immutable';
 import classNames from 'classnames';

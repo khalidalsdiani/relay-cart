@@ -2,7 +2,8 @@
  * Created by Soon on 9/16/2015.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import IScroll from 'iscroll/build/iscroll-lite';
 
