@@ -37,7 +37,7 @@ graphQLServer.use('/graphql',
     schema: Schema,
     rootValue: request,
     pretty: true,
-    graphiql: false,
+    graphiql: true,
     context: request.session,
   })),
 );
