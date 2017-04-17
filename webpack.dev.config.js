@@ -20,12 +20,10 @@ const fontPaths = [
   path.join(rootPath, 'node_modules', 'ionicons', 'dist', 'fonts'),
 ];
 
-const extractCSS = new ExtractTextPlugin({ filename: '[name].css', allChunks: true });
 
 module.exports = {
   // devtool: 'eval',
   devtool: 'source-map',
-  watch: true,
 
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
@@ -43,36 +41,37 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        use: 'babel-loader',
         exclude: /node_modules/,
       },
       {
         test: /\.(css|scss)$/,
-        loader: extractCSS.extract({
-          fallbackLoader: 'style-loader',
-          loader: [
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
             'css-loader',
             'sass-loader?sourceMap=true',
             'postcss-loader',
           ],
         }),
+        include: stylePaths,
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?.*$/,
-        loader: 'file-loader?limit=100000&minetype=application/font-woff',
+        use: 'file-loader?limit=100000&minetype=application/font-woff',
         include: fontPaths,
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?.*$/,
-        loader: 'file-loader',
+        use: 'file-loader',
         include: fontPaths,
       },
     ],
   },
 
   plugins: [
-    extractCSS,
-    new webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin({ filename: '[name].css', allChunks: true }),
+    // new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development'),

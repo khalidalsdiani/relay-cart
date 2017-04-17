@@ -11,16 +11,6 @@ import {
   GraphQLString,
 } from 'graphql';
 
-import {
-  connectionArgs,
-  connectionDefinitions,
-  connectionFromArray,
-  fromGlobalId,
-  globalIdField,
-  mutationWithClientMutationId,
-  nodeDefinitions,
-} from 'graphql-relay';
-
 import { nodeField } from './defaultDefinitions';
 export * from './defaultDefinitions';
 
@@ -37,16 +27,6 @@ import { cartEntryType, queryCartEntry } from './types/cartEntryType';
 export * from './types/cartEntryType';
 
 
-/**
- * This is the type that will be the root of our query,
- * and the entry point into our schema.
- *
- * This implements the following type system shorthand:
- *   type Query {
- *     factions(names: [FactionName]): [Faction]
- *     node(id: String!): Node
- *   }
- */
 const queryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
@@ -59,15 +39,6 @@ const queryType = new GraphQLObjectType({
   }),
 });
 
-/**
- * This is the type that will be the root of our mutations,
- * and the entry point into performing writes in our schema.
- *
- * This implements the following type system shorthand:
- *   type Mutation {
- *     introduceShip(input IntroduceShipInput!): IntroduceShipPayload
- *   }
- */
 const mutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
@@ -76,10 +47,6 @@ const mutationType = new GraphQLObjectType({
   }),
 });
 
-/**
- * Finally,  we construct our schema (whose starting query type is the query
- * type we defined above) and export it.
- */
 export const Schema = new GraphQLSchema({
   query: queryType,
   mutation: mutationType,

@@ -6,10 +6,10 @@ import express from 'express';
 import graphQLHTTP from 'express-graphql';
 import morgan from 'morgan';
 import path from 'path';
-import pkg from './package.json';
 import session from 'express-session';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
+import pkg from './package.json';
 import { Schema } from './data/schema';
 import webpackConfig from './webpack.dev.config';
 import logger from './logger';
@@ -39,11 +39,11 @@ graphQLServer.use('/graphql',
     pretty: true,
     graphiql: false,
     context: request.session,
-  }))
+  })),
 );
 
 graphQLServer.listen(GRAPHQL_PORT, () => console.log(
-  `GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}`
+  `GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}`,
 ));
 
 // create a single instance of the compiler to allow caching
@@ -74,7 +74,7 @@ app.use(express.static(publicPath));
 
 app.use(morgan('combined', { stream: logger.stream }));
 
-app.listen(APP_PORT, 'localhost', ()=> {
+app.listen(APP_PORT, 'localhost', () => {
   console.log(`App Server is now running on http://localhost:${APP_PORT}`);
-  console.log('[webpack-dev-server]', `http://localhost:${APP_PORT}\/webpack-dev-server/index.html`);
+  console.log('[webpack-dev-server]', `http://localhost:${APP_PORT}/webpack-dev-server/index.html`);
 });

@@ -16,7 +16,7 @@ const networkLayerOptions = {
 
 /* inject DefaultNetworkLayer with options */
 Relay.injectNetworkLayer(
-  new Relay.DefaultNetworkLayer('/graphql', networkLayerOptions)
+  new Relay.DefaultNetworkLayer('/graphql', networkLayerOptions),
 );
 
 ReactDOM.render(
@@ -24,10 +24,11 @@ ReactDOM.render(
     history={browserHistory}
     render={applyRouterMiddleware(useRelay)}
     environment={Relay.Store}
-    routes={rootRoute} />,
-  document.getElementById('root')
+    routes={rootRoute}
+  />,
+  document.getElementById('root'),
 );
 
-document.addEventListener('DOMContentLoaded', ()=> {
+document.addEventListener('DOMContentLoaded', () => {
   FastClick.attach(document.body);
 }, false);
