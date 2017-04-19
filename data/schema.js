@@ -14,6 +14,9 @@ import {
 import { nodeField } from './defaultDefinitions';
 export * from './defaultDefinitions';
 
+import { viewerType, queryViewer } from './types/viewerType';
+export * from './types/viewerType';
+
 import { productType, queryProduct } from './types/productType';
 export * from './types/productType';
 
@@ -34,6 +37,7 @@ const queryType = new GraphQLObjectType({
     product: queryProduct,
     productList: queryProductList,
     cart: queryCart,
+    viewer: queryViewer,
 
     node: nodeField,
   }),

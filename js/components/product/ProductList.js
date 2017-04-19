@@ -22,7 +22,7 @@ import './ProductList.scss';
 class ProductList extends React.Component {
 
   static propTypes = {
-    productList: PropTypes.object,
+    products: PropTypes.object,
     cart: PropTypes.object,
     relay: PropTypes.object,
   };
@@ -83,7 +83,8 @@ class ProductList extends React.Component {
   }, 500);
 
   addToCart = (product, quantity)=> {
-    const { relay, cart } = this.props;
+    const { relay, viewer } = this.props;
+    const { cart } = viewer;
     return relay.applyUpdate(new AddToCartMutation({ cart, product, quantity }), {
       onSuccess: () => {
         console.log('added to cart!');
@@ -125,7 +126,8 @@ class ProductList extends React.Component {
   };
 
   handleScrollEnd = (event)=> {
-    const { productList } = this.props;
+    const { viewer } = this.props;
+    const { products } = viewer;
     const { isLoading } = this.state.data.toJS();
 
     if (!isLoading) {
@@ -134,7 +136,7 @@ class ProductList extends React.Component {
         /* load next page once scroll to the last three item */
         const scrolledOffsetTop = Math.abs(event.y) + event.wrapperHeight + lastThirdItemDOM[0].offsetHeight;
         const offsetTopToLoadNextPage = lastThirdItemDOM[0].offsetTop;
-        if (scrolledOffsetTop > offsetTopToLoadNextPage && productList.items.pageInfo.hasNextPage) {
+        if (scrolledOffsetTop > offsetTopToLoadNextPage && products.pageInfo.hasNextPage) {
           this.loadNextPage();
         }
       }
@@ -142,9 +144,10 @@ class ProductList extends React.Component {
   };
 
   render() {
-    const { productList, cart } = this.props;
+    const { viewer } = this.props;
+    const { products, cart } = viewer;
 
-    const entries = productList.items.edges.map(({ node: product })=> {
+    const entries = products.edges.map(({ node: product })=> {
       const cartEntryEdge = cart.entries.edges.find(({ node: entry })=>entry.product.id === product.id);
       const cartQuantity = cartEntryEdge ? cartEntryEdge.node.quantity : 0;
 
@@ -168,7 +171,7 @@ class ProductList extends React.Component {
         <Scroll onScrollEnd={this.handleScrollEnd} >
           <div className="entries" >
             <div className="description" >
-              <p>{productList.totalNumberOfItems} results.</p>
+              <p>{products.totalNumberOfItems} results.</p>
             </div>
             {entries}
           </div>
@@ -190,10 +193,10 @@ export default Relay.createContainer(ProductList, {
   },
 
   fragments: {
-    productList: () => Relay.QL`
-      fragment on ProductList {
+    viewer: () => Relay.QL`
+      fragment on Viewer{
         id
-        items(first: $size) {
+        products(first: $size){
           edges {
             node {
               id
@@ -201,34 +204,32 @@ export default Relay.createContainer(ProductList, {
               ${AddToCartMutation.getFragment('product')}
             }
           }
+          totalNumberOfItems
           pageInfo {
             hasNextPage
             hasPreviousPage
           }
         }
-        totalNumberOfItems
-      }
-    `,
-    cart: () => Relay.QL`
-      fragment on Cart {
-        id
-        entries(first: 100){
-          edges {
-            node {
-              id
-              product{
+        cart {
+          id
+          entries(first: 100){
+            edges {
+              node {
                 id
+                product{
+                  id
+                }
+                quantity
               }
-              quantity
+            }
+            pageInfo {
+              hasNextPage
+              hasPreviousPage
             }
           }
-          pageInfo {
-            hasNextPage
-            hasPreviousPage
-          }
+          totalNumberOfItems
+          ${AddToCartMutation.getFragment('cart')}
         }
-        totalNumberOfItems
-        ${AddToCartMutation.getFragment('cart')}
       }
     `,
   },

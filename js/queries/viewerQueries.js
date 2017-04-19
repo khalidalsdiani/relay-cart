@@ -3,6 +3,6 @@
  */
 import Relay from 'react-relay';
 export default {
-  cart: () => Relay.QL` query { cart } `,
+  viewer: () => Relay.QL` query { viewer } `,
 };
 

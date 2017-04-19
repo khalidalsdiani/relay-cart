@@ -4,24 +4,6 @@
 
 const PRODUCTS = [
   {
-    id: '1497408180', productCode: '1497408180',
-    name: 'A Smarter Way to Learn JavaScript: The new approach that uses technology to cut your effort in half',
-    price: 17.96,
-    images: [{
-      format: 'thumbnail',
-      url: 'http://ecx.images-amazon.com/images/I/51JwcqaSYPL._AA320_QL65_.jpg',
-    }],
-  },
-  {
-    id: '0596805527', productCode: '0596805527',
-    name: 'The Definitive Guide: Activate Your Web Pages (Definitive Guides)',
-    price: 33.89,
-    images: [{
-      format: 'thumbnail',
-      url: 'http://ecx.images-amazon.com/images/I/51WD-F3GobL._AA320_QL65_.jpg',
-    }],
-  },
-  {
     id: '1118531647', productCode: '1118531647',
     name: 'JavaScript and JQuery: Interactive Front-End Web Development',
     price: 28.85,
@@ -150,14 +132,15 @@ const PRODUCTS = [
 ];
 
 export default class Product {
-  static getAll = ()=> PRODUCTS.map(p=>new Product(p));
+  static getAll = () => PRODUCTS.map(p => new Product(p));
 
-  static findOne = ({ productCode })=> PRODUCTS.find(p=> p.productCode === productCode);
-  static findById = (id)=> PRODUCTS.find(p=> p.id === id);
+  static findOne = ({ productCode }) => PRODUCTS.find(p => p.productCode === productCode);
+  static findById = (id) => PRODUCTS.find(p => p.id === id);
 
-  constructor({ id, name, price, images }) {
+  constructor({ id, name, price, color, images }) {
     this.id = id;
     this.name = name;
+    this.color = color;
     this.price = price;
     this.images = images;
   }

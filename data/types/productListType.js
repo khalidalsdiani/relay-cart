@@ -40,7 +40,7 @@ export const productListType = new GraphQLObjectType({
     items: {
       type: productConnectionType,
       args: connectionArgs,
-      resolve: ({}, args)=> {
+      resolve: ({}, args) => {
         logger.info('Resolving queryProductList with params:', { args });
         const start = args.after ? cursorToOffset(args.after) + 1 : 0;
         const size = (args.first || 8) + 1;
@@ -52,17 +52,8 @@ export const productListType = new GraphQLObjectType({
 
         return connectionFromArray(
           array,
-          args
+          args,
         );
-      },
-    },
-    totalNumberOfItems: {
-      type: GraphQLInt,
-      resolve: ({}, {})=> {
-        const start = 0;
-        const size = 1;
-        const result = productService.findAll({ start, size });
-        return result.totalNumberOfItems;
       },
     },
   }),

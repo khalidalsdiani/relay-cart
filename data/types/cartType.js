@@ -40,13 +40,14 @@ export const cartType = new GraphQLObjectType({
     entries: {
       type: cartEntryConnectionType,
       args: connectionArgs,
-      resolve: ({ entries }, args)=> {
+      resolve: ({ entries }, args) => {
         logger.info('Resolving cartType.entries with params:', args);
 
-        return connectionFromArray(
+        const connection = connectionFromArray(
           entries,
-          args
+          args,
         );
+        return connection;
       },
     },
     totalNumberOfItems: {
@@ -60,7 +61,15 @@ export const cartType = new GraphQLObjectType({
 });
 
 export const { connectionType: cartConnectionType, edgeType: cartEdgeType } =
-  connectionDefinitions({ name: 'Cart', nodeType: cartType });
+  connectionDefinitions({
+    name: 'Cart',
+    nodeType: cartType,
+    connectionFields: {
+      totalNumberOfItems: {
+        type: GraphQLInt,
+      },
+    },
+  });
 
 export const queryCart = {
   type: cartType,

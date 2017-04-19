@@ -33,16 +33,6 @@ export const imageType = new GraphQLObjectType({
   name: 'Image',
   description: 'Just image',
   fields: () => ({
-    id: {
-      name: 'id',
-      description: 'The ID of an object',
-      type: new GraphQLNonNull(GraphQLID),
-      resolve: (obj)=> {
-        // pick up image id from url
-        const imageId = /(\w+)\.\w+(?=.jpg)/g.exec(obj.url)[1];
-        return toGlobalId('Image', imageId);
-      },
-    },
     format: {
       type: GraphQLString,
       description: 'The format of image.',
@@ -52,7 +42,6 @@ export const imageType = new GraphQLObjectType({
       description: 'The url of image.',
     },
   }),
-  interfaces: [nodeInterface],
 });
 
 export const { connectionType: imageConnection, edgeType: imageEdge } =

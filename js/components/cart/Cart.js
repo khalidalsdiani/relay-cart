@@ -47,7 +47,8 @@ class Cart extends React.Component {
   }, 500);
 
   addToCart = (product, quantity)=> {
-    const { relay, cart } = this.props;
+    const { relay, viewer } = this.props;
+    const { cart } = viewer;
     return relay.applyUpdate(new AddToCartMutation({ cart, product, quantity }), {
       onSuccess: () => {
         console.log('added to cart!');
@@ -68,7 +69,8 @@ class Cart extends React.Component {
 
 
   removeFromCart = (cartEntry)=> {
-    const { relay, cart } = this.props;
+    const { relay, viewer } = this.props;
+    const { cart } = viewer;
     return relay.applyUpdate(new RemoveFromCartMutation({ cart, cartEntry }));
   };
 
@@ -90,7 +92,7 @@ class Cart extends React.Component {
   };
 
   render() {
-    const { cart } = this.props;
+    const { cart } = this.props.viewer;
     const {} = this.state.data.toJS();
 
     const entries = cart.entries.edges.map(({ node: cartEntry })=>
@@ -120,31 +122,33 @@ export default Relay.createContainer(Cart, {
   initialVariables: {},
 
   fragments: {
-    cart: () => Relay.QL`
-      fragment on Cart {
-        id
-        entries(first: 100){
-          edges {
-            node {
-              id
-              product{
+    viewer: () => Relay.QL`
+      fragment on Viewer {
+        cart{
+          id
+          entries(first: 100){
+            edges {
+              node {
                 id
-                ${AddToCartMutation.getFragment('product')}
+                product{
+                  id
+                  ${AddToCartMutation.getFragment('product')}
+                }
+                quantity
+                ${RemoveFromCartMutation.getFragment('cartEntry')}
+                ${CartEntry.getFragment('cartEntry')}
               }
-              quantity
-              ${RemoveFromCartMutation.getFragment('cartEntry')}
-              ${CartEntry.getFragment('cartEntry')}
+            }
+            pageInfo {
+              hasNextPage
+              hasPreviousPage
             }
           }
-          pageInfo {
-            hasNextPage
-            hasPreviousPage
-          }
+          totalNumberOfItems
+          totalPriceOfItems
+          ${AddToCartMutation.getFragment('cart')}
+          ${RemoveFromCartMutation.getFragment('cart')}
         }
-        totalNumberOfItems
-        totalPriceOfItems
-        ${AddToCartMutation.getFragment('cart')}
-        ${RemoveFromCartMutation.getFragment('cart')}
       }
     `,
   },

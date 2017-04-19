@@ -6,7 +6,7 @@ export default {
   getComponent(nextState, cb) {
     const self = this;
     require.ensure([], (require) => {
-      self.queries = require('../queries/productListQueries').default;
+      self.queries = require('../queries/viewerQueries').default;
       const component = require('../components/product/ProductList').default;
 
       self.component = component;

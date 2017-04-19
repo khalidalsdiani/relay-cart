@@ -47,10 +47,7 @@ type CartEntryEdge {
 }
 
 # Just image
-type Image implements Node {
-  # The ID of an object
-  id: ID!
-
+type Image {
   # The format of image.
   format: String
 
@@ -87,8 +84,20 @@ type PageInfo {
 type Product implements Node {
   # The ID of an object
   id: ID!
+
+  # 商品名称
   name: String
+
+  # 商品颜色
+  color: String
+
+  # 商品描述
+  description: String
+
+  # 商品价格，保留两位小数
   price: Float
+
+  # 商品图片，['primary': 主图,'thumbnail'：缩略图,'zoom':大图]
   images(format: String = "any", after: String, first: Int, before: String, last: Int): [Image]
 }
 
@@ -99,6 +108,7 @@ type ProductConnection {
 
   # A list of edges.
   edges: [ProductEdge]
+  totalNumberOfItems: Int
 }
 
 # An edge in a connection.
@@ -114,13 +124,13 @@ type ProductList implements Node {
   # The ID of an object
   id: ID!
   items(after: String, first: Int, before: String, last: Int): ProductConnection
-  totalNumberOfItems: Int
 }
 
 type Query {
   product(id: ID): Product
   productList: ProductList
   cart: Cart
+  viewer(id: ID): Viewer
 
   # Fetches an object given its ID
   node(
@@ -138,4 +148,12 @@ type RemoveFromCartPayload {
   deletedCartEntryId: ID
   cart: Cart
   clientMutationId: String
+}
+
+type Viewer implements Node {
+  # The ID of an object
+  id: ID!
+  name: String
+  cart: Cart
+  products(after: String, first: Int, before: String, last: Int): ProductConnection
 }
